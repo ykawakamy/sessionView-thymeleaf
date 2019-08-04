@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="w3.css" th:href="@{/w3.css}">
+<title>Leak</title>
+</head>
+<body>
+
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card">
+    <a href="add" th:href="@{/session/add}"　class="w3-bar-item w3-button w3-padding-large">add</a>
+    <a href="add" th:href="@{/session/add(value=map)}"　class="w3-bar-item w3-button w3-padding-large">addMap</a>
+    <a href="add" th:href="@{/session/add(value=list)}"　class="w3-bar-item w3-button w3-padding-large">addList</a>
+    <a href="add" th:href="@{/session/add(value=dto)}"　class="w3-bar-item w3-button w3-padding-large">addDto</a>
+    <a href="removeAll" th:href="@{/session/removeAll}" class="w3-bar-item w3-button w3-padding-large w3-hide-small">removeAll</a>
+  </div>
+</div>
+<div class="w3-content">
+  <div class="w3-container w3-content w3-center w3-padding-64">
+    <h2 class="w3-wide">Session</h2>
+    
+    <table class="w3-table w3-bordered w3-border w3-small">
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th>Json</th>
+        <th>Size</th>
+        <th>-</th>
+      </tr>
+      <tr th:each="attr: ${sessionVo}" th:object="${attr.value}">
+        <td th:text="*{key}">Key</td>
+        <td th:text="*{value}">Value</td>
+        <td th:text="*{json}">Value</td>
+        <td th:text="*{size}">Value</td>
+        <td><a th:href="@{/session/remove(key=*{key})}">remove</a></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="w3-container w3-content w3-padding-64">
+    <form th:action="@{/session/removeAll}">
+      regexp.<input type="text" name="key" value="key.*$" />
+      <input type="submit" value="removeAll" />
+    </form>
+  </div>
+
+</div>
+
+
+
+</body>
+</html>
